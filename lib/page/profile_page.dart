@@ -8,44 +8,46 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Profile"),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 🔥 HEADER + FOTO PROFILE
+            // 🔹 HEADER + FOTO PROFILE
             Stack(
-  clipBehavior: Clip.none,
-  children: [
-    Container(
-      height: 180,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/header.jpg"),
-          fit: BoxFit.cover,
-        ),
-      ),
-    ),
+              clipBehavior: Clip.none,
+              children: [
+                Container(
+                  height: 180,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/header.jpg"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
 
-    Positioned(
-      bottom: -50,
-      left: 20,
-      child: CircleAvatar(
-        radius: 50,
-        backgroundColor: Colors.white,
-        child: CircleAvatar(
-          radius: 45,
-          backgroundImage: AssetImage("assets/images/profile.jpg"),
-        ),
-      ),
-    ),
-  ],
-),
+                Positioned(
+                  bottom: -50,
+                  left: 20,
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundColor: Colors.white,
+                    child: const CircleAvatar(
+                      radius: 45,
+                      backgroundImage:
+                          AssetImage("assets/images/profile.jpg"),
+                    ),
+                  ),
+                ),
+              ],
+            ),
 
             const SizedBox(height: 60),
 
-            // 🔹 NAMA & HEADLINE
+            // 🔹 NAMA & JUDUL
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
@@ -80,18 +82,19 @@ class ProfilePage extends StatelessWidget {
             // 🔹 ABOUT
             buildSectionTitle("About"),
             buildSectionContent(
-                "Mahasiswa Universitas Pamulang yang sedang belajar Flutter dan pengembangan aplikasi mobile."),
+              "Mahasiswa Universitas Pamulang yang memiliki minat dalam pengembangan aplikasi mobile menggunakan Flutter dan UI Design.",
+            ),
 
-            // 🔹 EXPERIENCE
-            buildSectionTitle("Experience"),
-            buildSectionContent("Intern @ Barbie Corp"),
+            // 🔹 INFORMATION
+            buildSectionTitle("Information"),
+            buildInfoRow(Icons.email, "louverera@gmail.com"),
+            buildInfoRow(Icons.phone, "0812345678"),
+            buildInfoRow(Icons.cake, "August 05, 2004"),
+            buildInfoRow(Icons.school,
+                "Computer Science at Pamulang University"),
 
-            // 🔹 EDUCATION
-            buildSectionTitle("Education"),
-            buildSectionContent("bachelor's degree in Computer Science, Universitas Pamulang"),
-
-            // 🔹 SKILLS
-            buildSectionTitle("Skills"),
+            // 🔹 SKILLS & INTEREST
+            buildSectionTitle("Skills & Interest"),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Wrap(
@@ -100,6 +103,8 @@ class ProfilePage extends StatelessWidget {
                   Chip(label: Text("Flutter")),
                   Chip(label: Text("Dart")),
                   Chip(label: Text("UI Design")),
+                  Chip(label: Text("Figma")),
+                  Chip(label: Text("Mobile Dev")),
                 ],
               ),
             ),
@@ -111,21 +116,42 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  // 🔧 Widget helper biar rapi
+  // 🔧 TITLE SECTION
   static Widget buildSectionTitle(String title) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 10, 16, 5),
+      padding: const EdgeInsets.fromLTRB(16, 20, 16, 5),
       child: Text(
         title,
-        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
 
+  // 🔧 CONTENT TEXT
   static Widget buildSectionContent(String content) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Text(content),
+      child: Text(
+        content,
+        style: const TextStyle(fontSize: 14),
+      ),
+    );
+  }
+
+  // 🔧 ROW INFORMATION (ICON + TEXT)
+  static Widget buildInfoRow(IconData icon, String text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      child: Row(
+        children: [
+          Icon(icon, size: 18, color: Colors.blue),
+          const SizedBox(width: 10),
+          Expanded(child: Text(text)),
+        ],
+      ),
     );
   }
 }
